@@ -1,12 +1,19 @@
 "use client";
 
-import { useSession } from "next-auth/react";
+import { useAppStore } from "@/stores";
+import { signOut, useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import React from "react";
+import toast from "react-hot-toast";
 
 export default function Page() {
   const { data: session } = useSession();
+  const { user } = useAppStore();
   if (!session) redirect("/login");
+  function handleSignOut() {
+    signOut({ callbackUrl: "/login" });
+    toast.success("Logged out");
+  }
   return (
     <div className="py-8">
       <p className="text-xl font-bold">My Profile</p>
@@ -20,12 +27,19 @@ export default function Page() {
         </div>
 
         <div className="mt-4 text-center">
-          <p className="text-2xl font-semibold">John Doe</p>
-          <p className="text-sm">john.doe@example.com</p>
+          <p className="text-2xl font-semibold">{user?.name}</p>
+          <p className="text-sm">{user?.email}</p>
           <p className="text-sm  mt-2">
             A passionate developer and hackathon enthusiast.
           </p>
         </div>
+
+        <button
+          onClick={handleSignOut}
+          className="mt-4 px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+        >
+          Log Out
+        </button>
       </div>
 
       <div className="mt-8 grid grid-cols-3 gap-4">

@@ -40,9 +40,9 @@ const Login: React.FC = () => {
     setIsLoading(false);
     if (response?.error) {
       toast.error("Login failed");
-      router.push("/");
       console.log("Login failed", response.error);
     } else {
+      router.push("/");
       toast.success("Login successful");
       console.log("Login successful");
     }

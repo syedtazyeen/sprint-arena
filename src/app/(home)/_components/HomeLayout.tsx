@@ -5,7 +5,7 @@ import { Plus, User } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import NavButton from "./NavButton";
 import { navMenu } from "./nav";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import Link from "next/link";
 import { SessionProvider } from "next-auth/react";
 import { useAppStore } from "@/stores";
