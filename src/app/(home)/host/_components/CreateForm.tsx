@@ -6,7 +6,8 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Button from "@/components/ui/button";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 const hackathonSchema = z.object({
   name: z.string().nonempty("Name is required"),
@@ -66,6 +67,9 @@ export default function CreateForm() {
       setIsLoading(false);
     }
   };
+
+  const { data: session } = useSession();
+  if (!session) redirect("/login");
 
   return (
     <div>

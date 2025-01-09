@@ -6,11 +6,14 @@ import toast from "react-hot-toast";
 import ListItem from "./ListItem";
 import { Loader2 } from "lucide-react";
 import { useAppStore } from "@/stores";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 export default function List() {
   const [isLoading, setIsLoading] = useState(false);
   const [events, setEvents] = useState<EventDetails[]>([]);
   const { user } = useAppStore();
+  const { data: session } = useSession();
 
   async function fetchEvents() {
     setIsLoading(true);
@@ -35,6 +38,7 @@ export default function List() {
   }
 
   useEffect(() => {
+    if (!session) redirect("/login");
     fetchEvents();
   }, [user]);
 

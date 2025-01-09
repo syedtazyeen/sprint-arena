@@ -1,8 +1,12 @@
-"use client"
+"use client";
 
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 import React from "react";
 
 export default function Page() {
+  const { data: session } = useSession();
+  if (!session) redirect("/login");
   return (
     <div className="py-8">
       <p className="text-xl font-bold">My Profile</p>

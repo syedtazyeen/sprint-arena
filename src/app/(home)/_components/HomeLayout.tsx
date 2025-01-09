@@ -32,12 +32,10 @@ export default function HomeLayout({
     });
 
     if (!response.ok) {
-      toast.error("Failed to load user");
       return;
     }
     const result = await response.json();
     setUser(result);
-    console.log(result)
   }
 
   useEffect(() => {
@@ -74,7 +72,7 @@ export default function HomeLayout({
             <Link href="/profile">
               <Button
                 variant="outline"
-                className="aspect-square"
+                className="aspect-square mt-1"
                 rounded="full"
                 size="small"
               >
